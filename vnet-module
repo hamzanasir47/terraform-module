@@ -1,5 +1,5 @@
 module "vnet" {
-  source              = "./examples/complete"
+  source              = "./Module"
   vnet_name           = "my-vnet"
   location            = "East Us"
   resource_group_name = "myresourcegroup"
