@@ -25,10 +25,17 @@ variable "address_space" {
 variable "subnets" {
   description = "List of subnets to create"
   type = list(object({
-    name                       = "subnet-a"
-    address_prefixes           = ["10.0.1.0/24"]
-    private_endpoint_policies  = false
+    name                       = string
+    address_prefixes           = list(string)
+    private_endpoint_policies  = bool
   }))
+  default = [  # The default must match the structure defined in the type
+    {
+      name                      = "subnet-a"
+      address_prefixes          = ["10.0.1.0/24"]
+      private_endpoint_policies = false
+    }
+  ]
 }
 
 variable "tags" {
