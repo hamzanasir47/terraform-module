@@ -19,16 +19,15 @@ variable "resource_group_name" {
 variable "address_space" {
   description = "Address space for the VNet"
   type        = list(string)
-  default     = "10.0.0.0/16"
+  default     = ["10.0.0.0/16"]
 }
 
 variable "subnets" {
   description = "List of subnets to create"
   type = list(object({
-    name                       = string
-    address_prefixes           = list(string)
-    private_endpoint_policies  = bool
-    default                    = "subnet-a"
+    name                       = "subnet-a"
+    address_prefixes           = ["10.0.1.0/24"]
+    private_endpoint_policies  = false
   }))
 }
 
