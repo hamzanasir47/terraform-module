@@ -41,5 +41,8 @@ variable "subnets" {
 variable "tags" {
   description = "Tags to associate with resources"
   type        = map(string)
-  default     = {}
+  default     = {
+    environment = "production"
+    project     = "my-project"
+  }
 }
