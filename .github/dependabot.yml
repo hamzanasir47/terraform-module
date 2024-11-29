@@ -6,7 +6,7 @@
 version: 2
 updates:
   - package-ecosystem: "terraform" # Specify Terraform as the ecosystem
-    directory: "/examples/complete/provider.tf"                # Root directory containing your `provider.tf` file
+    directory: "/module/provider.tf"                # Root directory containing your `provider.tf` file
     schedule:
       interval: "daily"           # Check for updates daily (can also be "weekly" or "monthly")
     open-pull-requests-limit: 5   # Limit the number of open PRs from Dependabot
