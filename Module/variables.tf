@@ -37,7 +37,7 @@ variable "subnets" {
 #    }
 # ]
  
-# }
+}
 
 variable "tags" {
   description = "Tags to associate with resources"
