@@ -1,4 +1,3 @@
-
 resource "azurerm_virtual_network" "main" {
   name                = var.vnet_name
   location            = var.location
