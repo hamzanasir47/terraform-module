@@ -1,13 +1,10 @@
-name: Dispatch All Terraform Module Emphemeral Test Builds
-run-name: Dispatch All Terraform Module Emphemeral Test Builds (${{ github.ref }})
+name: Trigger Target Repo Workflow on Dependabot Update
 
-# Criteria for Execution
-on: 
-  workflow_dispatch:
-
-  push:
-    branches:  
-     - main
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main  # Branch where Dependabot operates
 
 # Required Permissions by GITHUB_TOKEN
 permissions: 
@@ -17,51 +14,21 @@ permissions:
   actions: read
   deployments: write
 
-# Sequential Jobs for Execution
 jobs:
-  dispatch-apply:
-    name: Matrix Terraform Apply
-    strategy:
-      fail-fast: false
-      matrix:
-        configurations: 
-          # - 'LPL-Platforms/terraform-aws-service-apigateway'
-          # - 'LPL-Platforms/terraform-aws-service-athena'
-          # - 'LPL-Platforms/terraform-aws-service-cloudfront-distribution'
-          # - 'LPL-Platforms/terraform-aws-service-cloudwatch-metric-alarm'
-          # - 'LPL-Platforms/terraform-aws-service-cloudwatch-log-query'
-          # - 'LPL-Platforms/terraform-aws-service-dynamodb'
-          # - 'LPL-Platforms/terraform-aws-service-ec2-instance'
-          # - 'LPL-Platforms/terraform-aws-service-efs'
-          # - 'LPL-Platforms/terraform-aws-service-eks'
-          # - 'LPL-Platforms/terraform-aws-service-eventbridge-rule'
-          # - 'LPL-Platforms/terraform-aws-service-glue-connection'
-          # - 'LPL-Platforms/terraform-aws-service-glue-job'
-          # - 'LPL-Platforms/terraform-aws-service-glue-catalog-database'
-          # - 'LPL-Platforms/terraform-aws-service-glue-crawler'
-          # - 'LPL-Platforms/terraform-aws-service-glue-workflow'
-          # - 'LPL-Platforms/terraform-aws-service-glue-trigger'
-          # - 'LPL-Platforms/terraform-aws-service-iam-role'
-          # - 'LPL-Platforms/terraform-aws-service-iam-user'
-          # - 'LPL-Platforms/terraform-aws-service-iam-policy'
-          # - 'LPL-Platforms/terraform-aws-service-kinesis-data-stream'
-          # - 'LPL-Platforms/terraform-aws-service-kms'
-          # - 'LPL-Platforms/terraform-aws-service-lambda-function'
-          # - 'LPL-Platforms/terraform-aws-service-lambda-layer'
-          # - 'LPL-Platforms/terraform-aws-service-mwaa'
-          # - 'LPL-Platforms/terraform-aws-service-route53-healthcheck'
-          # - 'LPL-Platforms/terraform-aws-service-route53-record'
-          # - 'LPL-Platforms/terraform-aws-service-s3-bucket'
-          # - 'LPL-Platforms/terraform-aws-service-s3-object'
-          # - 'LPL-Platforms/terraform-aws-service-secretsmanager'
-          # - 'LPL-Platforms/terraform-aws-service-securitygroup'
-          # - 'LPL-Platforms/terraform-aws-service-sns'
-          # - 'LPL-Platforms/terraform-aws-service-sqs'
-          # - 'LPL-Platforms/terraform-aws-service-stepfunctions'
-          # - 'LPL-Platforms/terraform-aws-service-ssm-parameter'
-          - 'hamzanasir47/terraform-module'
-          
-    uses: ./.github/workflows/ephemeral-test-build-apply.yaml
-    with:
-        configuration: ${{ matrix.configurations }}
-    secrets: inherit
+  notify-target-repo:
+    if: ${{ github.actor == 'dependabot[bot]' }}  # Ensure only Dependabot triggers this job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Repository Dispatch Event
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.repos.createDispatchEvent({
+              owner: 'hamzanasir47',  # Replace with target repo owner
+              repo: 'terraform-testing',   # Replace with target repo name
+              event_type: 'dependabot-update', # Matches event type in target repo
+              #client_payload: {
+              #  updated_file: 'provider.tf',   # Example of passing the updated file
+              #  updated_version: '1.2.3'       # Optional: Add more details if needed
+              #}
+            })
