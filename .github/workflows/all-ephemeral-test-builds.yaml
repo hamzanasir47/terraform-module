@@ -25,11 +25,11 @@ jobs:
           github-token: ${{ secrets.TF_TEST }}
           script: |
             github.rest.repos.createDispatchEvent({
-              owner: 'hamzanasir47',  # Replace with target repo owner
-              repo: 'terraform-testing',   # Replace with target repo name
-              event_type: 'dependabot-update', # Matches event type in target repo
-              #client_payload: {
-              #  updated_file: 'provider.tf',   # Example of passing the updated file
-              #  updated_version: '1.2.3'       # Optional: Add more details if needed
-              #}
+              owner: 'hamzanasir47',  //# Replace with target repo owner
+              repo: 'terraform-testing',   //# Replace with target repo name
+              event_type: 'dependabot-update', //# Matches event type in target repo
+              //client_payload: {
+              //  updated_file: 'provider.tf',   # Example of passing the updated file
+              //  updated_version: '1.2.3'       # Optional: Add more details if needed
+              //}
             })
