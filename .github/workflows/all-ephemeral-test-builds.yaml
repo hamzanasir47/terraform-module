@@ -30,6 +30,6 @@ jobs:
               event_type: 'dependabot-update', //# Matches event type in target repo
               //client_payload: {
               //  updated_file: 'provider.tf',   # Example of passing the updated file
-              //  updated_version: '1.2.3'       # Optional: Add more details if needed
+              //  updated_version: '1.2.4'       # Optional: Add more details if needed
               //}
             })
