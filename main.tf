@@ -12,7 +12,7 @@ resource "azurerm_subnet" "main" {
   resource_group_name     = var.resource_group_name
   virtual_network_name    = azurerm_virtual_network.main.name
   address_prefixes        = var.subnets[count.index].address_prefixes
-  enforce_private_link_endpoint_network_policies = var.subnets[count.index].private_endpoint_policies
+
 }
 
 resource "azurerm_network_security_group" "main" {
