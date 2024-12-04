@@ -7,7 +7,7 @@ on:
       - main  # Branch where Dependabot operates
   push:
     branches:
-      -main    
+      - main    
 
 # Required Permissions by GITHUB_TOKEN
 permissions: 
