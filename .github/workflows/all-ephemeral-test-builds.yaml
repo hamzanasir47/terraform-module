@@ -4,13 +4,13 @@ on:
   pull_request:
     types: [opened, synchronize]
     branches:
-      - main  # Branch where Dependabot operates
+      - main # Branch where Dependabot operates
   push:
     branches:
-      - main    
+      - main
 
 # Required Permissions by GITHUB_TOKEN
-permissions: 
+permissions:
   id-token: write
   contents: read
   pull-requests: write
@@ -32,6 +32,6 @@ jobs:
               repo: 'terraform-testing',   //# Replace with target repo name
               event_type: 'dependabot-update', //# Matche event type in target repo
               //client_payload: {
-              //  updated_file: 'provider.tf',   # Example of passing the updated file
+              //  updated_file: 'provider.tf',   # Exampe of passing the updated file
               //}
             })
